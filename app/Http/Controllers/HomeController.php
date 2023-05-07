@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use routes;
 
 class HomeController extends Controller
 {
@@ -29,12 +32,10 @@ class HomeController extends Controller
                 return redirect('/admin/home');
             }
             else{
-                return view('dashboard');
+                return redirect('/dashboard');
             }
         }
-        // else{
-            return view('auth.login');
-        // }
-        
+        return view('auth.login');
+
     }
 }

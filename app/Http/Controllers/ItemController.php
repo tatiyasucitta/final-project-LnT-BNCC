@@ -7,6 +7,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Support\Str;
+
 
 class ItemController extends Controller
 {
@@ -18,34 +20,54 @@ class ItemController extends Controller
         $items = Item::all();
         return view('home', ['items' =>$items]);
     }
+    public function userviewpage(){
+        $items = Item::all();
+        return view('homeuser', ['items' =>$items]);
+    }
     public function create(){
         return view('create', ['cat' => Category::all()]);
     }
     public function created(request $request){
-        return $request->file('image')->store('post-images');
+        // return $request->file('image')->store('post-images');
 
         $request->validate([
             "nama" => "required|min:5|max:80",
             "harga" =>"required|numeric",
             "jumlah" =>"required|numeric",
             "category_id" =>"required",
-            // "image" =>"required|mimes:jpg,jpeg,png"
+            "image" =>"required|mimes:jpg,jpeg,png"
         ]);
+
+        $input = $request->all();
+
+        if($request->hasFile('image')){
+            $destination_path = 'public/images/products';
+            $image = $request->file('image');
+            $img_name = $image->getClientOriginalName();
+            $image_name = Str::random(10) . '_' . $img_name;
+            $path = $request->file('image')->storeAs($destination_path, $image_name);
+        
+            $input['image'] = $image_name;
+        }
+        // if ($request->img) {
+        //     $file = $request->File('img');
+        //     $ext  = $user->username . "." . $file->clientExtension();
+        //     $file->storeAs('images/', $ext);
+        //     $user->image_name = $ext;
+        // }
+
+        // $img = $request->file('bookImg')->getClientOriginalName();
+        // $newNameBookImg = Str::random(10) . '_' . $img;
+        // $request->file('bookImg')->storeAs('public/', $newNameBookImg);
 
         Item::create([
             'nama' => $request->nama,
             'harga' => $request->harga,
             'jumlah' => $request->jumlah,
             'category_id' => $request->category_id,
-            // 'image' => $request->image
+            'image' => $image_name
         ]);
-
-        // $file = $request->file('image');
-
-        // $filename = time() . '-' . $file->getClientOriginalName();
-        // $path = public_path().'\\pictures\\';
-
-        // $file->move($path, $filename);
+       
         return redirect('admin/home')->with('success', 'Item Added!');
     }
 

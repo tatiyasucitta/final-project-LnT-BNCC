@@ -67,19 +67,7 @@
     @if(Session::has('success'))
         <p class="alert alert-success" style="margin:2rem;">{{ Session::get('success')}}</p>
     @endif
-    <div class="navbargue" style="border-bottom: 1px solid grey; padding: 1rem;">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">View Product</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{route('add')}}">Add Product</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{route('cat')}}">Create Category</a>
-            </li>
-        </ul>
-    </div>
+    
     <div class="boxkatalog">
         @foreach ($items as $item)
             <div class="card" style="width: 18rem;">
@@ -89,19 +77,10 @@
                     <h5 class="card-text">Rp.{{$item->harga}}</h5>
                     <h6 class="card-text">{{ $item->category->categoryName }}</h6>
                     <h6 class="card-text" style="color:grey;">stock: {{$item->jumlah}}</h6>
-                    <div class="d-flex gap-2">
-                        <a href="{{  route('update', $item->id)  }}" class="btn btn-warning">Update</a>
-                        <form action="{{ route('delete', $item->id)}}" method = "post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         @endforeach
     </div>
-        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     </body>
     </html>
