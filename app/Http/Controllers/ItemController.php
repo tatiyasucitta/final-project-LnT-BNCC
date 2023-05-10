@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\faktur;
+use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -37,7 +39,11 @@ class ItemController extends Controller
             "category_id" =>"required",
             "image" =>"required|mimes:jpg,jpeg,png"
         ]);
-
+        // $userid = auth()->id();
+        // $user = User::with('faktur')->find($userid);
+        // $user = User::find($userid);
+        // $user = faktur::where('user_id', $userid);
+        // @dd($user->id);
         $input = $request->all();
 
         if($request->hasFile('image')){
@@ -65,7 +71,8 @@ class ItemController extends Controller
             'harga' => $request->harga,
             'jumlah' => $request->jumlah,
             'category_id' => $request->category_id,
-            'image' => $image_name
+            'image' => $image_name,
+            // 'faktur_id' => $user->id
         ]);
        
         return redirect('admin/home')->with('success', 'Item Added!');
@@ -94,6 +101,7 @@ class ItemController extends Controller
             'jumlah' => $request->jumlah,
             'category_id' => $request->category_id
         ]);
+
         return redirect('admin/home')->with('success', 'Item Updated!');
     }
     

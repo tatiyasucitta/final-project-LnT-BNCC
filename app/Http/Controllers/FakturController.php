@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\faktur;
 use Illuminate\Http\Request;
+use App\Models\Item;
+use App\Models\faktur;
+use App\Models\Cart;
+use App\Models\User;
+use App\Http\Controllers\Auth\UserController;
+use Illuminate\Support\Facades\Auth;
 
 class FakturController extends Controller
 {
@@ -12,15 +17,19 @@ class FakturController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createinvoice(request $request)
     {
-        //
+        
+        $harga = faktur::with('Item')->get();
+        $invoice = faktur::where('user_id')->find($userid);
+        $cart = Cart::all();
+        return view('faktur',['items'=> $cart, 'harga'=>$harga]);
     }
 
     /**

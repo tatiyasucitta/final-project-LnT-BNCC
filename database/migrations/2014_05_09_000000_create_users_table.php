@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('tlp');
             $table->integer('role')->default('0');
+            // $table->foreign('invoice')
+            // ->references('id')
+            // ->on('fakturs')
+            // ->onUpdate('cascade')
+            // ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

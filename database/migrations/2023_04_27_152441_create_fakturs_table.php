@@ -12,15 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fakturs', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->unsignedBigInteger('user_id');
-            $table->string('address', 100);
-            $table->string('postal', 5);
-            $table->foreign('user_id')
-            ->references('id')
-            ->on('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            // $table->unsignedBigInteger('item_id');
+            // $table->foreign('item_id')->references('id')->on('itemzs')->onDelete('cascade');
             $table->timestamps();
         });
     }

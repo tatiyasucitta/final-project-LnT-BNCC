@@ -23,4 +23,7 @@ class Item extends Model
     public function fakturdetail(){
         return $this->belongsTo(fakturdetail::class);
     }
+    public function cart(){
+        return $this->hasMany(cart::class);
+    }
 }

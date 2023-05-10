@@ -9,13 +9,9 @@ class faktur extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'address',
-        'postal'
-    ];
 
     public function user(){
-        return $this->hasOne(user::class);
+        return $this->belongsTo(user::class);
     }
 
     public function fakturdetail(){

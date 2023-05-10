@@ -32,6 +32,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'invoice'
     ];
 
     /**
@@ -44,7 +45,10 @@ class User extends Authenticatable
     ];
 
     public function faktur(){
-        return $this->belongsTo(faktur::class);
+        return $this->hasMany(faktur::class);
+    }
+    public function cart(){
+        return $this->hasMany(cart::class);
     }
 
 }

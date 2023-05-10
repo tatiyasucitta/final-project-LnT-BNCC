@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use routes;
 
+
 class HomeController extends Controller
 {
     /**
@@ -32,6 +33,9 @@ class HomeController extends Controller
                 return redirect('/admin/home');
             }
             else{
+                // return view('faktur',['items'=> $cart
+                // // ,'invoice' =>$invoice
+                // ]);
                 return redirect('/dashboard');
             }
         }

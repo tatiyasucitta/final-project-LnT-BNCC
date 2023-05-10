@@ -67,7 +67,13 @@
     @if(Session::has('success'))
         <p class="alert alert-success" style="margin:2rem;">{{ Session::get('success')}}</p>
     @endif
-    
+    <div class="navbargue" style="border-bottom: 1px solid grey; padding: 1rem;">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('faktur')}}">Facture</a>
+            </li>
+        </ul>
+    </div>
     <div class="boxkatalog">
         @foreach ($items as $item)
             <div class="card" style="width: 18rem;">
@@ -77,6 +83,13 @@
                     <h5 class="card-text">Rp.{{$item->harga}}</h5>
                     <h6 class="card-text">{{ $item->category->categoryName }}</h6>
                     <h6 class="card-text" style="color:grey;">stock: {{$item->jumlah}}</h6>
+                    <form action="{{ route('cart', $item->id)}}" method = "post">
+                        @csrf
+                        {{-- @method('delete') --}}
+                        <input type="number" value="1" min="1" name="quantity" class="text-sm sm:text-base px-2 pr-2 rounded-lg border border-gray-400 py-1 focus:outline-none focus:border-blue-400"
+                        style="width: 50px"/>
+                        <button type="submit" class="btn btn-success">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         @endforeach

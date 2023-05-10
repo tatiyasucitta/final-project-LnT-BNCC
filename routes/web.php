@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FakturdetailController;
+use App\Http\Controllers\FakturController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -49,10 +52,15 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     //     // Define your protected routes here
     Route::get('/dashboard', [ItemController::class, 'userviewpage'])->name('user');
+    Route::post('/add-to-cart/{id}', [CartController::class, 'store'])->name('cart');
+    Route::get('/faktur', [FakturController::class, 'createinvoice'])->name('faktur');
+    Route::post('/faktur/create', [FakturdetailController::class, 'create'])->name('createfaktur');
+    Route::get('/ordered', [FakturdetailController::class, 'index'])->name('ordered');
+
     Route::prefix('admin')->middleware(['isAdmin'])->group(function () {
         // Define your protected routes here
         Route::get('/home',[ItemController::class, 'view'])->name('home');
-        Route::get('/addItems', [ItemController::class, 'view']
+        Route::get('/addItems', [ItemController::class, 'create']
         )->name('add');
         Route::post('/itemsAdded',[ItemController::class, 'created']
         )->name('added');

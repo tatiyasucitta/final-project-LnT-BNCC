@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\fakturdetail;
+use App\Models\Item;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
 
 class FakturdetailController extends Controller
 {
@@ -12,23 +16,46 @@ class FakturdetailController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(request $request)
     {
-        //
+        $request->validate([
+            'address' =>'required|min:10|max:100',
+            'postal' =>'required|min:5',
+            'quantity' => 'required'
+            ])
+            $year = substr(Carbon::now()->year, 2, 4);
+            $invoice->id = Str::random(3) . "." . "000.888" . $year . '.' . mt_rand(100, 999);
+            $invoice->user_id = $user;
+            $invoice->save();
+        fakturdetail::create([
+            'address' => $request->address,
+            'postal' => $request->postal,
+            'quantity' => $request->quantity,
+            'invoice' => 
+        ]);
+        $user = auth()->id();
+        $invoice = new faktur;
+        $cart = Cart::all();
+        
+        return view('faktur',['items'=> $cart
+            // ,'invoice' =>$invoice
+            ]);
+        
+        return redirect('/ordered')->with('success', 'Order created!');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+     //
     }
 
     /**
