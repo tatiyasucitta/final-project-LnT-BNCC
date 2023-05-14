@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address', 100);
             $table->string('postal', 5);
             $table->foreign('invoice')
-            ->references('id')
+            ->references('invoice')
             ->on('fakturs')
             ->onUpdate('cascade')
             ->onDelete('cascade');

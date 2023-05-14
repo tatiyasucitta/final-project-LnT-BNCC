@@ -25,11 +25,15 @@ class FakturController extends Controller
      */
     public function createinvoice(request $request)
     {
-        
-        $harga = faktur::with('Item')->get();
-        $invoice = faktur::where('user_id')->find($userid);
+        $userid = auth()->id();
+        // dd($userid);
+
+        // $harga = faktur::with('Item')->get();
+        $faktur = faktur::where('user_id', $userid)->firstorfail();
+        $invoice1 = $faktur->invoice;
         $cart = Cart::all();
-        return view('faktur',['items'=> $cart, 'harga'=>$harga]);
+            dd($cart->item);
+        // return view('faktur',['items'=> $cart,'invoice'=> $invoice1]);
     }
 
     /**

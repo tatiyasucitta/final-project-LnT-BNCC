@@ -71,7 +71,7 @@ class RegisterController extends Controller
      */
     protected function create( array $data)
     {
-        
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -82,7 +82,7 @@ class RegisterController extends Controller
         // $user->invoices()->save($invoice);
         $invoice->user_id = $user->id;
         $year = substr(Carbon::now()->year, 2, 4);
-        $invoice->id = Str::random(3) . "." . "000.888" . $year . '.' . mt_rand(100, 999);
+        $invoice->invoice = Str::random(3) . "." . "000.888" . $year . '.' . mt_rand(100, 999);
         $invoice->save();
         // $user = auth()->id();
         return $user;

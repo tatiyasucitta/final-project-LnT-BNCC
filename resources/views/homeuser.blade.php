@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>PT. Meksiko</title>
     <link rel="stylesheet" href="{{ asset('css/view.css') }} ">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('PT. Meksiko', 'PT. Meksiko') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -21,6 +21,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
+                    <div class="navbargue" style="border-bottom: 1px solid grey; padding: 1rem;">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{route('faktur')}}">Facture</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </ul>
 
@@ -67,13 +74,6 @@
     @if(Session::has('success'))
         <p class="alert alert-success" style="margin:2rem;">{{ Session::get('success')}}</p>
     @endif
-    <div class="navbargue" style="border-bottom: 1px solid grey; padding: 1rem;">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-              <a class="nav-link" href="{{route('faktur')}}">Facture</a>
-            </li>
-        </ul>
-    </div>
     <div class="boxkatalog">
         @foreach ($items as $item)
             <div class="card" style="width: 18rem;">

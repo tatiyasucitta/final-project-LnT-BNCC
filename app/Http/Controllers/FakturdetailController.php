@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\fakturdetail;
 use App\Models\Item;
+use App\Models\faktur;
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -28,24 +30,17 @@ class FakturdetailController extends Controller
             'address' =>'required|min:10|max:100',
             'postal' =>'required|min:5',
             'quantity' => 'required'
-            ])
-            $year = substr(Carbon::now()->year, 2, 4);
-            $invoice->id = Str::random(3) . "." . "000.888" . $year . '.' . mt_rand(100, 999);
-            $invoice->user_id = $user;
-            $invoice->save();
+        ]);
+
+        $userid = auth()->id();
+        $faktur = faktur::where('user_id', $userid)->firstorfail();
+        $invoice1 = $faktur->invoice;
         fakturdetail::create([
             'address' => $request->address,
             'postal' => $request->postal,
             'quantity' => $request->quantity,
-            'invoice' => 
+            'invoice' => $invoice1
         ]);
-        $user = auth()->id();
-        $invoice = new faktur;
-        $cart = Cart::all();
-        
-        return view('faktur',['items'=> $cart
-            // ,'invoice' =>$invoice
-            ]);
         
         return redirect('/ordered')->with('success', 'Order created!');
     }
